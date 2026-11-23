@@ -1,0 +1,377 @@
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#080b1b">
+<title>VYRO ASSIST</title>
+
+<style>
+:root{
+--bg:#080b1b;
+--panel:#111831;
+--panel2:#1a2542;
+--accent:#8068ff;
+--cyan:#32d9ec;
+--text:#f5f6ff;
+--muted:#929bb8;
+--border:#293452;
+}
+*{box-sizing:border-box}
+body{
+margin:0;
+background:var(--bg);
+color:var(--text);
+font-family:Arial,sans-serif;
+min-height:100vh;
+}
+.app{
+max-width:950px;
+margin:auto;
+min-height:100vh;
+display:flex;
+flex-direction:column;
+}
+header{
+padding:20px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+background:#0c1124;
+border-bottom:1px solid var(--border);
+}
+.logo{
+font-size:25px;
+font-weight:900;
+letter-spacing:2px;
+}
+.logo span{color:var(--cyan)}
+.status{
+font-size:12px;
+color:#55e5ad;
+}
+.status:before{
+content:"●";
+margin-left:6px;
+}
+.hero{
+text-align:center;
+padding:35px 15px 15px;
+}
+.orb{
+width:75px;
+height:75px;
+margin:0 auto 17px;
+border-radius:25px;
+display:grid;
+place-items:center;
+font-size:35px;
+background:linear-gradient(135deg,#8068ff,#21c9e5);
+box-shadow:0 0 35px #7967ff55;
+}
+.hero h1{margin:0 0 10px;font-size:27px}
+.hero p{color:var(--muted);font-size:14px}
+.suggestions{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:9px;
+padding:10px 15px 20px;
+}
+.suggestion{
+background:var(--panel);
+border:1px solid var(--border);
+color:white;
+border-radius:20px;
+padding:10px 14px;
+cursor:pointer;
+}
+.suggestion:hover{border-color:var(--accent)}
+.chat{
+flex:1;
+padding:15px;
+overflow-y:auto;
+min-height:250px;
+}
+.message{
+display:flex;
+margin:15px 0;
+gap:10px;
+align-items:flex-start;
+}
+.avatar{
+width:35px;
+height:35px;
+border-radius:12px;
+flex-shrink:0;
+display:grid;
+place-items:center;
+background:var(--panel2);
+}
+.bubble{
+max-width:88%;
+padding:13px 15px;
+border-radius:15px;
+background:var(--panel);
+border:1px solid var(--border);
+line-height:1.8;
+font-size:14px;
+white-space:pre-wrap;
+overflow-wrap:anywhere;
+}
+.user{flex-direction:row-reverse}
+.user .bubble{
+background:#292453;
+border-color:#5145a1;
+}
+.tool-card{
+margin-top:10px;
+padding:12px;
+background:var(--panel2);
+border:1px solid var(--border);
+border-radius:12px;
+}
+.tool-card strong{
+display:block;
+color:var(--cyan);
+margin-bottom:5px;
+}
+.tool-card small{color:var(--muted);line-height:1.7}
+.tool-card a{
+display:inline-block;
+margin-top:8px;
+color:#b5aaff;
+text-decoration:none;
+}
+.input-area{
+position:sticky;
+bottom:0;
+background:#0c1124;
+padding:15px;
+border-top:1px solid var(--border);
+}
+.input-box{
+display:flex;
+gap:10px;
+background:var(--panel);
+border:1px solid var(--border);
+border-radius:16px;
+padding:8px;
+}
+input{
+flex:1;
+min-width:0;
+background:transparent;
+color:white;
+border:0;
+outline:none;
+padding:10px;
+font-size:15px;
+}
+.send{
+background:linear-gradient(135deg,var(--accent),#31bcd8);
+padding:0 20px;
+border-radius:12px;
+font-size:18px;
+}
+.actions{
+display:flex;
+justify-content:space-between;
+margin-top:10px;
+color:var(--muted);
+font-size:11px;
+}
+.clear{background:transparent;color:var(--muted)}
+footer{
+text-align:center;
+color:#64708e;
+padding:12px;
+font-size:11px;
+}
+@media(max-width:500px){
+.hero h1{font-size:23px}
+.bubble{max-width:90%}
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+<header>
+<div class="logo">VYRO <span>ASSIST</span></div>
+<div class="status">System Ready</div>
+</header>
+
+<section class="hero">
+<div class="orb">✦</div>
+<h1>أهلاً بك في VYRO ASSIST</h1>
+<p>Your Independent Digital Assistant</p>
+</section>
+
+<div class="suggestions">
+<button class="suggestion" onclick="quick('عايز أدوات صناعة الصور')">🎨 صناعة الصور</button>
+<button class="suggestion" onclick="quick('عايز أدوات صناعة الفيديو')">🎬 صناعة الفيديو</button>
+<button class="suggestion" onclick="quick('عايز أدوات البرمجة')">💻 البرمجة</button>
+<button class="suggestion" onclick="quick('عايز أدوات كتابة المحتوى')">✍️ كتابة المحتوى</button>
+<button class="suggestion" onclick="quick('إيه قدراتك؟')">✨ قدرات المساعد</button>
+</div>
+
+<main class="chat" id="chat">
+<div class="message">
+<div class="avatar">✦</div>
+<div class="bubble">أهلاً بيك! 👋
+
+أنا VYRO ASSIST، مساعدك الرقمي المستقل.
+
+أقدر أساعدك في اكتشاف الأدوات الرقمية وترشيح الأدوات المناسبة لاحتياجاتك.
+
+اكتب طلبك وخلينا نبدأ!</div>
+</div>
+</main>
+
+<div class="input-area">
+<div class="input-box">
+<input id="userInput" placeholder="اكتب رسالتك هنا..." autocomplete="off">
+<button class="send" onclick="sendMessage()">➤</button>
+</div>
+<div class="actions">
+<span>VYRO ASSIST · Independent Edition</span>
+<button class="clear" onclick="clearChat()">مسح المحادثة</button>
+</div>
+</div>
+
+<footer>Powered by VYRO</footer>
+</div>
+
+<script>
+const chat=document.getElementById("chat");
+const input=document.getElementById("userInput");
+
+const tools=[
+{name:"Leonardo AI",category:"صور",description:"إنشاء صور وأعمال فنية بالذكاء الاصطناعي.",keywords:["صور","رسم","صورة","فنية","تصميم"] ,url:"https://leonardo.ai"},
+{name:"Midjourney",category:"صور",description:"توليد صور إبداعية من الأوصاف النصية.",keywords:["صور","خيال","رسم","تصميم"] ,url:"https://www.midjourney.com"},
+{name:"Canva",category:"تصميم",description:"تصميم المنشورات والعروض التقديمية.",keywords:["تصميم","بوست","شعار","منشورات","عروض"] ,url:"https://www.canva.com"},
+{name:"Runway",category:"فيديو",description:"إنشاء وتحرير الفيديو بالذكاء الاصطناعي.",keywords:["فيديو","تحريك","مونتاج","افلام"] ,url:"https://runwayml.com"},
+{name:"CapCut",category:"فيديو",description:"تحرير الفيديو وإضافة المؤثرات والترجمة.",keywords:["مونتاج","فيديو","شورتس","ريلز","تحرير"] ,url:"https://www.capcut.com"},
+{name:"ElevenLabs",category:"صوت",description:"إنشاء الأصوات والتعليقات الصوتية.",keywords:["صوت","تعليق صوتي","اصوات","دبلجة"] ,url:"https://elevenlabs.io"},
+{name:"Suno",category:"موسيقى",description:"إنشاء الموسيقى والأغاني بالذكاء الاصطناعي.",keywords:["موسيقى","اغاني","لحن"] ,url:"https://suno.com"},
+{name:"GitHub",category:"برمجة",description:"استضافة وإدارة الأكواد والمشروعات.",keywords:["برمجة","كود","مواقع","تطبيقات","اكواد"] ,url:"https://github.com"},
+{name:"Perplexity",category:"بحث",description:"محرك بحث ذكي للعثور على المعلومات.",keywords:["بحث","معلومات","مصادر"] ,url:"https://www.perplexity.ai"},
+{name:"DeepL",category:"ترجمة",description:"ترجمة النصوص بين لغات متعددة.",keywords:["ترجمة","انجليزي","عربي","لغات"] ,url:"https://www.deepl.com"},
+{name:"Remove.bg",category:"صور",description:"إزالة خلفية الصور بسهولة.",keywords:["خلفية","ازالة الخلفية","قص الصور"] ,url:"https://www.remove.bg"},
+{name:"ChatGPT",category:"محادثة وكتابة",description:"مساعد للكتابة والإجابة عن الأسئلة وتوليد الأفكار.",keywords:["كتابة","محادثة","نصوص","اسئلة","افكار"] ,url:"https://chatgpt.com"}
+];
+
+function normalize(s){
+return s.toLowerCase()
+.replace(/[أإآ]/g,"ا")
+.replace(/ة/g,"ه")
+.replace(/ى/g,"ي")
+.replace(/[ًٌٍَُِّْـ]/g,"")
+.trim();
+}
+
+function addMessage(text,type="bot"){
+const row=document.createElement("div");
+row.className="message "+(type==="user"?"user":"");
+const avatar=document.createElement("div");
+avatar.className="avatar";
+avatar.textContent=type==="user"?"👤":"✦";
+const bubble=document.createElement("div");
+bubble.className="bubble";
+bubble.textContent=text;
+row.append(avatar,bubble);
+chat.appendChild(row);
+chat.scrollTop=chat.scrollHeight;
+return bubble;
+}
+
+function addToolCard(parent,tool){
+const card=document.createElement("div");
+card.className="tool-card";
+const title=document.createElement("strong");
+title.textContent="✦ "+tool.name;
+const desc=document.createElement("small");
+desc.textContent=tool.category+" — "+tool.description;
+const link=document.createElement("a");
+link.href=tool.url;
+link.target="_blank";
+link.rel="noopener noreferrer";
+link.textContent="زيارة الموقع ↗";
+card.append(title,desc,link);
+parent.appendChild(card);
+}
+
+function findTools(query){
+const q=normalize(query);
+const words=q.split(/\s+/).filter(w=>w.length>1);
+return tools.map(tool=>{
+const text=normalize(tool.name+" "+tool.category+" "+tool.description+" "+tool.keywords.join(" "));
+let score=0;
+words.forEach(word=>{if(text.includes(word))score+=2;});
+if(q.includes(normalize(tool.category)))score+=4;
+return {tool,score};
+}).filter(x=>x.score>0)
+.sort((a,b)=>b.score-a.score)
+.slice(0,5);
+}
+
+function respond(query){
+const q=normalize(query);
+
+if(/^(مرحبا|اهلا|السلام عليكم|ازيك|هاي|hello|hi)/.test(q)){
+return {text:"أهلاً بيك! 👋 أنا VYRO ASSIST. قول لي محتاج إيه؟"};
+}
+
+if(q.includes("مين انت")||q.includes("من انت")||q.includes("قدراتك")){
+return {text:"أنا VYRO ASSIST، مساعد رقمي مستقل. أقدر أساعدك في:\n\n• اكتشاف أدوات الذكاء الاصطناعي.\n• البحث عن أدوات حسب احتياجك.\n• اقتراح أدوات مناسبة.\n• تقديم أفكار للمشروعات والمحتوى.\n• مساعدتك في اختيار الأدوات."};
+}
+
+if(q.includes("شكرا")||q.includes("تسلم")){
+return {text:"العفو! ❤️ أنا موجود لمساعدتك. إيه اللي نشتغل عليه؟"};
+}
+
+const results=findTools(query);
+if(results.length){
+return {
+text:"لقيت لك أدوات ممكن تساعدك ✨\n\nدي النتائج الموجودة في قاعدة بياناتي:",
+results:results.map(x=>x.tool)
+};
+}
+
+return {
+text:"مش لاقي أداة مطابقة في قاعدة بياناتي الحالية.\n\nممكن توضح لي عايز تعمل إيه؟ مثلاً: تصميم صورة، صناعة فيديو، كتابة محتوى أو برمجة موقع."
+};
+}
+
+function sendMessage(){
+const query=input.value.trim();
+if(!query)return;
+addMessage(query,"user");
+input.value="";
+const response=respond(query);
+const bubble=addMessage(response.text);
+if(response.results){
+response.results.forEach(tool=>addToolCard(bubble,tool));
+}
+}
+
+function quick(text){
+input.value=text;
+sendMessage();
+}
+
+function clearChat(){
+chat.innerHTML="";
+addMessage("بدأنا محادثة جديدة! 👋 إزاي أقدر أساعدك؟");
+}
+
+input.addEventListener("keydown",e=>{
+if(e.key==="Enter")sendMessage();
+});
+</script>
+</body>
+</html>
+  
